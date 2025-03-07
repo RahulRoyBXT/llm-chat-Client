@@ -7,7 +7,6 @@ import { Welcome } from './components/WelcomePage/Welcome.jsx'
 import AllChat from './components/ChatPage/AllChat.jsx'
 import { Error } from './components/Error/Error.jsx'
 import { Chat } from './components/ChatPage/chat/chat.jsx'
-
 import { Provider } from 'react-redux'
 import {store}  from './features/store.js'
 

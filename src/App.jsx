@@ -1,16 +1,35 @@
-import { Suspense } from "react"
-import { Outlet } from "react-router-dom"
+import { Suspense, useEffect } from "react";
+import { Outlet } from "react-router-dom";
+import { BrowserView, MobileView } from "react-device-detect";
+import { createPortal } from "react-dom";
+import SimpleClock from "../features/Clock";
+
 // import { UserDataProvider } from "./context/UserDataProvider"
 
 const App = () => {
+
   return (
+    <main>
+      <BrowserView>
+        {createPortal(
+          <div className="absolute z-50 top-0 left-0 h-screen w-screen bg-base-100 text-base-content/50 text-2xl flex flex-col justify-center items-center gap-4">
+           <div className="h-[70vh] w-full flex flex-row justify-center items-center gap-4">
+            <img className="rounded-xl w-[30%]" src="https://i.giphy.com/lk6AqFz5KRWPQaAxbk.webp" alt="hard coding"/>
+            <SimpleClock />
+           </div>
+            <p>We are Working on Desktop Application.</p>
 
-        <main>
-          <Suspense fallback={<div>loading...</div>}>
-            <Outlet/>
-          </Suspense>
-        </main>
-  )
-}
+          </div>,
+          document.body
+        )}
+      </BrowserView>
+      <MobileView>
+      <Suspense fallback={<div>loading...</div>}>
+        <Outlet />
+      </Suspense>
+      </MobileView>
+    </main>
+  );
+};
 
-export default App
+export default App;
