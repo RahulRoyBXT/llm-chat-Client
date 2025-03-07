@@ -1,11 +1,15 @@
-import Chat from "./components/chat"
+import { Suspense } from "react"
+import { Outlet } from "react-router-dom"
+// import { UserDataProvider } from "./context/UserDataProvider"
 
 const App = () => {
-  return (<>
-    <div>App</div>
-    <Chat />
-  </>
+  return (
 
+        <main>
+          <Suspense fallback={<div>loading...</div>}>
+            <Outlet/>
+          </Suspense>
+        </main>
   )
 }
 

@@ -1,0 +1,92 @@
+/* All Body Font */
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital@0;1&display=swap');
+@import "tailwindcss";
+
+@plugin "daisyui" {
+    themes: all;
+    root: 'body';
+    logs: true;
+    prefix: 'd-';
+}
+
+
+@theme {
+    --color-primary: #f9fbfd;
+    --color-dark: #1a1b1e;
+    --font-primary: 'Josefin Sans', sans-serif;
+
+    --breakpoint-xs: 640px;
+    --breakpoint-xxs: 380px;
+
+    --color-btnColor: #d4ddf8;
+    --color-btnText: #05163d;
+    --color-btnHover: #307AB2;
+}
+
+@layer base {
+    body{
+        font-family: 'Josefin Sans', sans-serif;
+        font-optical-sizing: auto;
+        background: var(--color-primary);
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        /* object-fit: fill; */
+    }
+}
+
+@layer components {
+@media screen and (max-width: 640px) {
+    
+    .welcome-main {
+        @apply bg-primary flex flex-col items-center justify-center h-screen w-full min-xxs:gap-8;
+        .App-header{
+            @apply min-xxs:h-96 w-full flex items-center justify-center;
+            img{
+                @apply h-full w-full object-cover;
+            }
+        }
+        .welcome-content{
+            @apply flex flex-col items-center justify-center min-xxs:gap-8 max-xxs:mt-6;
+            .welcome-text{
+                @apply w-full min-xxs:h-20 max-xxs:text-xl min-xxs:text-2xl font-bold min-xxs:text-nowrap;
+            }
+            .user-section{
+                @apply h-40 w-full flex flex-col items-center justify-center gap-10;
+                span{
+                    @apply text-sm font-bold;
+                }
+                .Welcome-Button{
+                    @apply bg-btnColor text-btnText p-2 rounded-md w-full rounded-xl hover:bg-btnHover hover:text-primary h-15 flex items-center justify-center font-black text-xl ;
+                }
+            }
+
+            .restoreLinkbtn{
+                @apply text-dark text-lg font-black;
+            }
+            
+        }
+    
+    }
+}
+@media screen and (min-width: 640px){
+    body{
+        display: none;
+    }
+}
+}
+
+@utility text-gradient{
+    @apply bg-linear-to-r from-[#003049] to-[#AB8BFF] bg-clip-text text-transparent;
+}
+
+
+
+@utility hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
