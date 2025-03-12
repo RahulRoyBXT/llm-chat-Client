@@ -12,8 +12,6 @@ dist
 dist-ssr
 *.local
 
-// Experimental features
-features/
 
 # Editor directories and files
 .vscode/*
