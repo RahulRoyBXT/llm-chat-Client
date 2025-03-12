@@ -6,11 +6,14 @@ import { Account } from "./Account";
 import { SelectTheme } from "./SelectTheme";
 import PrivacyStatus from "./PrivacyStatus";
 import ProfileImageContainer from "../Popups/ProfileImageContainer";
+import { useSelector } from "react-redux";
+import { selectProfilePic, selectUserName } from "../../features/selectors/userSelector";
 
 
 export const Settings = ({ setNavOpenStatus, accountBtnStatus, setAccountBtnStatus, arrow, setArrow, themeSetting, setThemeSetting, imageContainer, setImageContainer, privacyStatus, setPrivacyStatus}) => {
-
-
+  
+  const profilePic = useSelector(selectProfilePic)
+  const userName = useSelector(selectUserName)
 
   return (
     <div className="min-h-content w-full rounded-xl flex flex-row backdrop-blur-6xl shadow-base-100 shadow-2xl p-4 bg-base-100">
@@ -27,16 +30,26 @@ export const Settings = ({ setNavOpenStatus, accountBtnStatus, setAccountBtnStat
             <div className="h-[40%] w-full flex flex-col items-center gap-4">
               <div
                 className="h-[70%] bg-amber-950 w-[50%] rounded-2xl"
-                onClick={() => setImageContainer(true)}
+                onClick={() => {
+                  if(profilePic){
+                  setImageContainer(true)}}
+                  }
               >
+                {profilePic? <img
+                  className="h-full w-full rounded-2xl object-cover"
+                  src={profilePic}
+                  alt="Profile Pic"
+                />:
                 <img
                   className="h-full w-full rounded-2xl object-cover"
-                  src="image.png"
+                  src='/no-chat.gif'
+                  alt="Profile Pic"
                 />
+                }
               </div>
               <div className="text-2xl">
                 {" "}
-                <p> Rahul Roy </p>{" "}
+                <p> {userName || 'What is your name?'} </p>{" "}
               </div>
             </div>
 
@@ -104,7 +117,7 @@ export const Settings = ({ setNavOpenStatus, accountBtnStatus, setAccountBtnStat
           }
 
           {imageContainer && 
-            <ProfileImageContainer setImageContainer={setImageContainer}/>
+            <ProfileImageContainer profilePic={profilePic} setImageContainer={setImageContainer}/>
           }
         </div>
       </div>

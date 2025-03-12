@@ -5,13 +5,16 @@ import { FaGoogle } from "react-icons/fa";
 import { createPortal } from "react-dom";
 import { EmailLoginForm } from "./EmailLoginForm/EmailLoginForm";
 import { NavLink } from "react-router-dom";
+import RegisterPage from "../Pages/RegisterPage";
 
 const LoginPage = () => {
   const [loginPortal, setLoginPortal] = useState(false);
+  const [registerForm, setRegisterForm] = useState(false)
   const Emailform = () => {
     console.log("okay");
     setLoginPortal(true);
   };
+
   return (
     <div className="h-[100dvh] bg-base-100 w-full flex flex-col justify-center items-center gap-16">
       <div className="h-80 p-6 w-full">
@@ -43,6 +46,13 @@ const LoginPage = () => {
             document.body
           )}
       </div>
+      <span onClick={()=> setRegisterForm(true)} className="p-4 h-15 bg-base-300 w-auto flex justify-center items-center text-base-content/60 rounded-xl">{registerForm ? '' : 'Register With Email'}</span>
+      {registerForm &&
+      createPortal(
+        <RegisterPage setRegisterForm={setRegisterForm}/>,
+        document.body
+      )
+      }
     </div>
   );
 };

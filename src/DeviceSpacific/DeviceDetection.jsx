@@ -39,8 +39,6 @@ export const DeviceSpecificResponse = ({
     }
   };
 
-  console.log(deferredPrompt)
-
   return (
     <MobileView>
       {DevicePopupStatus && (
@@ -58,7 +56,7 @@ export const DeviceSpecificResponse = ({
           <button
             onClick={() => setDevicePopupStatus(false)}
             aria-label="Close"
-            className="text-lg font-bold"
+            className="text-3xl font-bold"
           >
             ×
           </button>
