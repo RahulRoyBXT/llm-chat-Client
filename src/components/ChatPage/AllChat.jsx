@@ -11,7 +11,7 @@ import { FaSortUp } from "react-icons/fa";
 import { FaSortDown } from "react-icons/fa";
 import { CgCommunity } from "react-icons/cg";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import { DeviceSpacificResponse } from "../../DeviceSpacific/DeviceDetection.jsx";
+import { DeviceSpecificResponse } from "../../DeviceSpacific/DeviceDetection.jsx";
 
 let Data = []
 const AllChat = () => {
@@ -58,18 +58,6 @@ const AllChat = () => {
   if(isLoading) return <p> Loading</p>
   if(error) return <p> cant fetch data</p>
   
-
-
-  // console.log('main data', selectedUser || null)
-  // return(
-  //   <div>{Object.values(selectedUser).map(user=> (
-  //     <p key={user.id}>{user.firstName}</p>
-  //   ))}</div>
-  // )
-  
-
-  // const [filteredData, setFilteredData] = useState(data.users || []);
-
   return (
     <>
     <main className="h-screen w-full relative">
@@ -88,7 +76,7 @@ const AllChat = () => {
       )}
       <section className="All-Chat text-3xl min-h-[calc(100%-6rem)] max-h-fit pt-[6rem] w-full p-2 bg-base-300 text-base-content">
         <div className="min-h-[calc(100vh-7rem)] p-2 overflow-y-auto flex flex-col gap-4">
-        <DeviceSpacificResponse setDeferredPrompt={setDeferredPrompt} deferredPrompt={deferredPrompt} setDevicePopupStatus={setDevicePopupStatus} DevicePopupStatus={DevicePopupStatus}/>
+        <DeviceSpecificResponse setDeferredPrompt={setDeferredPrompt} deferredPrompt={deferredPrompt} setDevicePopupStatus={setDevicePopupStatus} DevicePopupStatus={DevicePopupStatus}/>
           {selectedFilteredUserData.length > 0 ? (
             selectedFilteredUserData.map((user) => {
               return (

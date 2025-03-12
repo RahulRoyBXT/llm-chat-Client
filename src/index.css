@@ -11,8 +11,8 @@
 
 
 @theme {
-    --color-primary: #f9fbfd;
-    --color-dark: #1a1b1e;
+    /* --color-primary: #f9fbfd; */
+    /* --color-dark: #1a1b1e; */
     --font-primary: 'Josefin Sans', sans-serif;
 
     --breakpoint-xs: 640px;
@@ -27,7 +27,6 @@
     body{
         font-family: 'Josefin Sans', sans-serif;
         font-optical-sizing: auto;
-        background: var(--color-primary);
         padding: 0;
         margin: 0;
         box-sizing: border-box;
@@ -39,30 +38,30 @@
 @media screen and (max-width: 640px) {
     
     .welcome-main {
-        @apply bg-primary flex flex-col items-center justify-center h-screen w-full min-xxs:gap-8;
+        @apply bg-base-100 flex flex-col items-center justify-center h-[100dvh] w-full min-xxs:gap-8;
         .App-header{
             @apply min-xxs:h-96 w-full flex items-center justify-center;
             img{
-                @apply h-full w-full object-cover;
+                @apply h-full w-full object-cover opacity-80;
             }
         }
         .welcome-content{
             @apply flex flex-col items-center justify-center min-xxs:gap-8 max-xxs:mt-6;
             .welcome-text{
-                @apply w-full min-xxs:h-20 max-xxs:text-xl min-xxs:text-2xl font-bold min-xxs:text-nowrap;
+                @apply w-full text-secondary-content/60 min-xxs:h-20 max-xxs:text-xl min-xxs:text-2xl font-bold min-xxs:text-nowrap;
             }
             .user-section{
                 @apply h-40 w-full flex flex-col items-center justify-center gap-10;
                 span{
-                    @apply text-sm font-bold;
+                    @apply text-sm text-secondary-content/50 font-bold;
                 }
                 .Welcome-Button{
-                    @apply bg-btnColor text-btnText p-2 rounded-md w-full rounded-xl hover:bg-btnHover hover:text-primary h-15 flex items-center justify-center font-black text-xl ;
+                    @apply bg-base-300 text-base-content/50 p-2 w-full rounded-xl hover:bg-primary hover:text-base-content h-15 flex items-center justify-center font-black text-xl ;
                 }
             }
 
             .restoreLinkbtn{
-                @apply text-dark text-lg font-black;
+                @apply mb-5 text-secondary-content/50 text-lg font-black;
             }
             
         }

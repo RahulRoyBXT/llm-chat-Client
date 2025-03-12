@@ -13,11 +13,10 @@ export const Welcome = () => {
         setNextPage(true);
     }
 
-    return !nextPage && ( <div className="h-screen w-full flex flex-col justify-center items-center bg-primary gap-8">
-      <span onClick={handleNextPage} className="text-gradient flex flex-col justify-center items-center text-6xl font-black font-sans">
-        💕
-      </span>
-      <h1 className="mt-4 text-lg "> Loading....</h1>
+    return !nextPage && (
+      <div className="h-[100dvh] w-full flex flex-col justify-center items-center bg-base-100 gap-8">
+        <span onClick={handleNextPage} className="text-6xl shadow-md shadow-base-300 bg-base-300 p-4 rounded-2xl">💕</span>
+      <h1 className="mt-4 text-xl text-base-content/50"> Loading....</h1>
     </div>)
     || (<WelcomePage />)
     

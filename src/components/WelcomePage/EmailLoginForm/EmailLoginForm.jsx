@@ -10,11 +10,11 @@ export const EmailLoginForm = ({setLoginPortal}) => {
         setLoginPortal(false)
     }
   return (
-    <div className="h-1/2 w-screen bg-primary/60 fixed top-0 left-0 z-50 flex justify-center items-center transform translate-x-[-50%] translate-y-[-50%] absolute top-1/2 left-1/2">
-       <div className="bg-primary/80 w-4/5 h-4/5 flex flex-col justify-center items-center rounded-lg">
-        <form className='flex flex-col gap-4 w-full h-1/2'>
-            <input type="email" name='email' placeholder="Email" className="w-4/5 h-1/3 bg-primary/80 text-dark text-xl rounded-lg p-4 border-1"/>
-            <input type="password" name='password' placeholder="Password" className="w-4/5 h-1/3 primary/80 text-dark text-xl rounded-lg p-4 border-1"/>  
+    <div className="h-1/2 w-screen bg-base-300 z-50 flex justify-center items-center transform translate-x-[-50%] translate-y-[-50%] absolute top-1/2 left-1/2">
+       <div className="bg-base-200 w-4/5 h-4/5 flex flex-col justify-center items-center rounded-lg">
+        <form className='flex flex-col gap-4 w-full h-1/2 items-center'>
+            <input type="email" name='email' placeholder="Email" className="w-4/5 h-1/3 bg-base-100 text-black text-xl rounded-lg p-4 border-1 border-blue-600 focus:text-base-content focus:border-base-content"/>
+            <input type="password" name='password' placeholder="Password"  className="w-4/5 h-1/3 bg-base-100 text-black text-xl rounded-lg p-4 border-1 border-blue-600 focus:text-base-content focus:border-base-content"/>  
         </form>
 
         <div className='flex justify-between w-full'>

@@ -1,36 +1,44 @@
 import { useEffect, useState } from "react";
 import { MobileView } from "react-device-detect";
 
-export const DeviceSpacificResponse = ({setDeferredPrompt, deferredPrompt, setDevicePopupStatus, DevicePopupStatus}) => {
-
+export const DeviceSpecificResponse = ({
+  setDeferredPrompt,
+  deferredPrompt,
+  setDevicePopupStatus,
+  DevicePopupStatus,
+}) => {
   useEffect(() => {
-    console.log('fired')
     const handleBeforeInstallPrompt = (e) => {
-      console.log('this works')
-      console.log("beforeinstallprompt event fired"); // Debug log
+      console.log("beforeinstallprompt event fired");
       e.preventDefault();
       setDeferredPrompt(e);
-      setDevicePopupStatus(prev => !prev); // Force re-render
+      setDevicePopupStatus((prev) => !prev);
     };
 
-    document.body.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
-    return () =>
-      document.body.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    };
   }, [setDeferredPrompt, setDevicePopupStatus]);
 
-  const handleInstallClick = () => {
-    console.log('mf')
+  const handleInstallClick = async () => {
     if (!deferredPrompt) return;
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then((choiceResult) => {
+
+    try {
+      deferredPrompt.prompt();
+      const choiceResult = await deferredPrompt.userChoice;
       console.log(
         choiceResult.outcome === "accepted"
           ? "User accepted the install prompt"
           : "User dismissed the install prompt"
       );
+    } catch (error) {
+      console.error("Error during installation prompt:", error);
+    } finally {
       setDeferredPrompt(null);
-    });
+    }
   };
+
   console.log(deferredPrompt)
 
   return (
@@ -38,13 +46,22 @@ export const DeviceSpacificResponse = ({setDeferredPrompt, deferredPrompt, setDe
       {DevicePopupStatus && (
         <div className="flex flex-row justify-between items-center p-2">
           <p className="text-xl">Mobile View</p>
+          {deferredPrompt && (
             <button
               onClick={handleInstallClick}
               className="text-sm border p-2 rounded-md bg-info/50 text-base-content hover:bg-info"
+              aria-label="Install App"
             >
               Install App
             </button>
-          <p onClick={() => setDevicePopupStatus(false)}>x</p>
+          )}
+          <button
+            onClick={() => setDevicePopupStatus(false)}
+            aria-label="Close"
+            className="text-lg font-bold"
+          >
+            ×
+          </button>
         </div>
       )}
     </MobileView>

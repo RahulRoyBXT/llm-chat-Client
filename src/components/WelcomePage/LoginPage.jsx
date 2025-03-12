@@ -13,26 +13,26 @@ const LoginPage = () => {
     setLoginPortal(true);
   };
   return (
-    <div className="h-screen w-full flex flex-col justify-center items-center bg-primary gap-16">
+    <div className="h-[100dvh] bg-base-100 w-full flex flex-col justify-center items-center gap-16">
       <div className="h-80 p-6 w-full">
         <img
-          className="h-full w-full object-fill"
+          className="h-full w-full object-fill opacity-80 border-b-1 border-primary-content"
           src="login.svg"
           alt="login logo"
         />
       </div>
       <div className="h-40 w-4/5 flex flex-col gap-4 justify-center items-center">
-        <Button className="h-15 w-4/5 text-primary text-2xl rounded-2xl  bg-slate-700 flex justify-around items-center ">
+        <Button className="h-15 w-4/5 text-base-content/50 text-xl rounded-2xl  bg-base-300 shadow-2xl shadow-base-300 flex justify-around items-center ">
           
-          <FaGoogle className="h-4/5 w-9 p-0" />
+          <FaGoogle className="h-2/5 w-9 p-0" />
           Google Login
         </Button>
         
           <Button
             onClick={Emailform}
-            className="h-15 w-4/5 text-primary text-2xl rounded-2xl  bg-slate-700 flex justify-around items-center "
+            className="h-15 w-4/5 text-base-content/50 text-xl rounded-2xl  bg-base-300 shadow-2xl shadow-base-300 flex justify-around items-center "
           >
-            <MdEmail className="h-4/5 w-9 p-0" /> Email Login
+            <MdEmail className="h-2/5 w-9 p-0" /> Email Login
           </Button>
         {loginPortal &&
           createPortal(
