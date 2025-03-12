@@ -26,6 +26,9 @@ const AllChat = () => {
   const [debounceSearchTerm, setDebounceSearchTerm] = useState("");
   const [openMoreOption, setOpenMoreOption] = useState(false)
 
+    const [DevicePopupStatus, setDevicePopupStatus] = useState(true);
+    const [deferredPrompt, setDeferredPrompt] = useState(null);
+
   useDebounce(() => setDebounceSearchTerm(searchField), 500, [searchField]);
 
   useEffect(()=>{
@@ -34,6 +37,8 @@ const AllChat = () => {
       dispatch(setFilteredData(userData.users)) // Stored data to filtered
     }
   }, [userData, dispatch])
+
+  
 
 
   useEffect(() => {
@@ -83,7 +88,7 @@ const AllChat = () => {
       )}
       <section className="All-Chat text-3xl min-h-[calc(100%-6rem)] max-h-fit pt-[6rem] w-full p-2 bg-base-300 text-base-content">
         <div className="min-h-[calc(100vh-7rem)] p-2 overflow-y-auto flex flex-col gap-4">
-        <DeviceSpacificResponse />
+        <DeviceSpacificResponse setDeferredPrompt={setDeferredPrompt} deferredPrompt={deferredPrompt} setDevicePopupStatus={setDevicePopupStatus} DevicePopupStatus={DevicePopupStatus}/>
           {selectedFilteredUserData.length > 0 ? (
             selectedFilteredUserData.map((user) => {
               return (

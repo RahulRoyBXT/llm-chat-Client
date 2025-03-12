@@ -12,7 +12,7 @@ export default defineConfig({
       registerType: "autoUpdate",
       manifest: {
         name: "Chat Application",
-        short_name: "Chat Application",
+        short_name: "ChatApp",
         icons: [
           {
             src: "/icon-192x192.png",
