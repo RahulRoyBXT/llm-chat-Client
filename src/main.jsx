@@ -8,8 +8,8 @@ import AllChat from './components/ChatPage/AllChat.jsx'
 import { Error } from './components/Error/Error.jsx'
 import { Chat } from './components/ChatPage/chat/chat.jsx'
 import { Provider } from 'react-redux'
-import {store, persistor}  from './features/store.js'
-import { PersistGate } from 'redux-persist/integration/react'
+import {store}  from './features/store.js'
+// import { PersistGate } from 'redux-persist/integration/react'
 
 // const Chat = lazy(() =>import('./components/ChatPage/chat/chat.jsx'))
 // const Error = lazy(() =>import('./components/Error/Error.jsx'))
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
+    {/* <PersistGate loading={null} persistor={persistor}> */}
       <RouterProvider router={router}>
 
           <StrictMode>
@@ -48,7 +48,7 @@ createRoot(document.getElementById('root')).render(
           </StrictMode>
 
       </RouterProvider>
-    </PersistGate>
+    {/* </PersistGate> */}
   </Provider>
   ,
 )
