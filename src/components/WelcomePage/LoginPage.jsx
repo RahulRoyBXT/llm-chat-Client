@@ -1,19 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "./Continue-agreement/Button";
 import { MdEmail } from "react-icons/md";
 import { FaGoogle } from "react-icons/fa";
 import { createPortal } from "react-dom";
 import { EmailLoginForm } from "./EmailLoginForm/EmailLoginForm";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import RegisterPage from "../Pages/RegisterPage";
+import { useSelector } from "react-redux";
 
 const LoginPage = () => {
   const [loginPortal, setLoginPortal] = useState(false);
   const [registerForm, setRegisterForm] = useState(false)
+  const selectUser = useSelector((state)=> state.auth.user)
+  
+  const navigate = useNavigate()
   const Emailform = () => {
-    console.log("okay");
     setLoginPortal(true);
   };
+
+  useEffect(()=>{
+    if(selectUser){
+      navigate('/all-chats')
+    }
+  },[navigate, selectUser])
 
   return (
     <div className="h-[100dvh] bg-base-100 w-full flex flex-col justify-center items-center gap-16">

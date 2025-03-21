@@ -1,19 +1,28 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import {Button} from "./Button"
 import { createPortal } from "react-dom";
 import { AgreementModal } from "./AgreementModal";
-import { useState } from "react";
-import LoginPage from "../LoginPage";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 export const WelcomePage = () => {
   const [ContinuePop, setContinuePop] = useState(false);
   const [AgreementStatus, setAgreementStatus] = useState(false);
+  const selectUser = useSelector((state)=> state.auth?.user)
+
+  const navigate = useNavigate()
   const handleAgreement = () =>{
     setContinuePop(true);
   }
-  if(AgreementStatus){
-    return <><LoginPage /></>
-  }
+  useEffect(()=>{
+    if(AgreementStatus){
+      navigate('/login')
+    }
+    if(selectUser) {
+      navigate('/all-chats')
+    }
+  },[AgreementStatus,navigate, selectUser])
+
 
   return (
     <main className="welcome-main">

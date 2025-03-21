@@ -3,11 +3,10 @@ import axios from "axios";
 
 
 const initialState = {
-  user: null,
+  user: [],
   loading: false,
   error: null,
 };
-
 
 
 // Async Thunk for check login status (called on app load)
@@ -18,8 +17,8 @@ export const checkLoginStatus = createAsyncThunk(
         try{
             const response = await axios.post('http://192.168.179.192:5000/api/users/auth/profile',{}, {withCredentials: true})
             // localStorage.setItem('user', JSON.stringify(response.data)) // Will check this later
-            console.log('response', response.data)
-            return response.data.message
+            // console.log('response', response.data)
+            return response.data
         } catch (error) {
             return rejectWithValue(error.response?.data?.error || 'Session Expired')
         }
@@ -32,7 +31,7 @@ export const checkLoginStatus = createAsyncThunk(
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (fromData, { rejectWithValue }) => {
-    console.log(fromData.password)
+    // console.log(fromData.password)
     try {
       const response = await axios.post(
         "http://192.168.179.192:5000/api/users/auth/createuser",
@@ -64,17 +63,17 @@ export const registerUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async ({ email, password }, { rejectWithValue }) => {
-    console.log(email, password)
+    // console.log(email, password)
       try {
           const response = await axios.post(
               "http://192.168.179.192:5000/api/users/auth/loginuser",
               { email, password },
               { withCredentials: true }
           );
-          console.log(response.data)
+          // console.log(response.data)
           return response.data;
       } catch (error) {
-          console.error("Login Error:", error);
+          // console.error("Login Error:", error);
           return rejectWithValue(
               error?.response?.data?.message || error.message || 'Login Failed'
           );
@@ -141,7 +140,6 @@ export const LogoutUser = createAsyncThunk(
 
 
 
-
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -155,20 +153,23 @@ const authSlice = createSlice({
     builder
     
         // Handle Login Status
+
         .addCase(checkLoginStatus.pending, (state)=>{
             state.loading = true
         })
         .addCase(checkLoginStatus.fulfilled, (state, action)=>{
             state.loading = false
             state.user = action.payload
+            // console.log(state.user)
         })
-        .addCase(checkLoginStatus.rejected, (state, action)=>{
+        .addCase(checkLoginStatus.rejected, (state)=>{
             state.loading = false
             state.user = null
-            state.error = action.payload
+  
         })
 
       //Handle User Registrations
+
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -179,10 +180,12 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
+        state.user = null
         state.error = action.payload;
       })
 
     //   Handle User Login
+
       .addCase(loginUser.pending, (state) => {
         // localStorage.removeItem('user')
         state.loading = true;
@@ -191,11 +194,14 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
+
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
+        state.user = null
         state.error = action.payload;
       })
+
       //Logout
 
       .addCase(LogoutUser.pending, (state)=>{
@@ -208,6 +214,7 @@ const authSlice = createSlice({
       })
       .addCase(LogoutUser.rejected, (state, action)=> {
         state.loading = false
+        state.user = null
         state.error = action.payload
       })
       

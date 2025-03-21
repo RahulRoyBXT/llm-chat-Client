@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import { BrowserView, MobileView } from "react-device-detect";
 import { createPortal } from "react-dom";
 import SimpleClock from "../features/Clock";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { checkLoginStatus } from "./features/authSlice";
 
 // import { UserDataProvider } from "./context/UserDataProvider"
@@ -11,14 +11,11 @@ import { checkLoginStatus } from "./features/authSlice";
 const App = () => {
 
   const dispatch = useDispatch();
-  const {loading, error} = useSelector((state)=> state.auth || null)
-
 
   useEffect(()=>{
     dispatch(checkLoginStatus())
   },[])
 
-  console.log(error, loading)
   return (
     <main>
     {/* {loading && alert('logged in')}
@@ -40,6 +37,7 @@ const App = () => {
       <Suspense fallback={<div>loading...</div>}>
         <Outlet />
       </Suspense>
+      
       </MobileView>
     </main>
   );

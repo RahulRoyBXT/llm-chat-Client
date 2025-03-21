@@ -1,25 +1,22 @@
-import {createSelector} from 'reselect'
+import { createSelector } from 'reselect';
 
-// Memoizing selector for User data
-
-export const selectUser = (state)=> state.auth?.user
+// Memoized selector for User data
+export const selectUser = (state) => state.auth?.user || {}; // Ensure it never returns `undefined`
 
 export const selectProfilePic = createSelector(
     [selectUser],
-    (user) => user?.profilePic
-)
+    (user) => {
+        console.log('rerendered')
+        return user?.photo || '';
+    }
+);
+
 export const selectUserName = createSelector(
     [selectUser],
-    (user)=> user?.userName
-)
+    (user) => user?.name || 'Guest' // Provide a fallback name
+);
 
 export const selectEmail = createSelector(
     [selectUser],
-    (user)=> user?.userName
-)
-
-
-export const selectPassword = createSelector(
-    [selectUser],
-    (user)=> user?.userName
-)
+    (user) => user?.email || '' // Provide an empty string as default
+);

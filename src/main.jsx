@@ -1,14 +1,19 @@
-import { lazy, StrictMode } from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { Welcome } from './components/WelcomePage/Welcome.jsx'
+import { WelcomeLogo } from './components/WelcomePage/WelcomeLogo.jsx'
 import AllChat from './components/ChatPage/AllChat.jsx'
 import { Error } from './components/Error/Error.jsx'
 import { Chat } from './components/ChatPage/chat/chat.jsx'
 import { Provider } from 'react-redux'
 import {store}  from './features/store.js'
+import LoginPage from './components/WelcomePage/LoginPage.jsx'
+import RegisterPage from './components/Pages/RegisterPage.jsx'
+import { WelcomePage } from './components/WelcomePage/Continue-agreement/WelcomePage.jsx'
+import { Error404 } from './components/Pages/404.jsx'
+
 // import { PersistGate } from 'redux-persist/integration/react'
 
 // const Chat = lazy(() =>import('./components/ChatPage/chat/chat.jsx'))
@@ -24,7 +29,11 @@ const router = createBrowserRouter([
     children: [
     {
       path:'/',
-      element: <Welcome/>
+      element: <WelcomeLogo/>
+    },
+    {
+      path: 'welcome&agreement',
+      element: <WelcomePage />
     },
     {
       path:'/all-chats',
@@ -33,6 +42,18 @@ const router = createBrowserRouter([
     {
       path:'/chat/:chats',
       element:<Chat />
+    },
+    {
+      path: '/login',
+      element: <LoginPage />
+    },
+    {
+      path: '/register',
+      element: <RegisterPage />
+    },
+    {
+      path:'*',
+      element: <Error404 />
     }
   ]
   }

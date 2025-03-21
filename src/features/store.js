@@ -3,14 +3,18 @@ import { apiSlice } from "../API/apiSlice";
 import { combineReducers } from "redux";
 
 import userReducer from "../features/userSlice.js";
-import ThemeSlice from "./ThemeSlice.js";
+import ThemeReducer from "./ThemeSlice.js";
 import authReducer from "./authSlice.js";
+import FriendsReducer from './friendsSlice.js'
+import MessagesSlice from './messageSlice.js'
 
 // Root Reducer
 const rootReducer = combineReducers({
     auth: authReducer,
     users: userReducer,
-    theme: ThemeSlice,
+    theme: ThemeReducer,
+    friends: FriendsReducer,
+    messages: MessagesSlice,
     [apiSlice.reducerPath]: apiSlice.reducer,
 });
 
