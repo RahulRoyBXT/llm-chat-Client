@@ -13,6 +13,7 @@ import LoginPage from './components/WelcomePage/LoginPage.jsx'
 import RegisterPage from './components/Pages/RegisterPage.jsx'
 import { WelcomePage } from './components/WelcomePage/Continue-agreement/WelcomePage.jsx'
 import { Error404 } from './components/Pages/404.jsx'
+import { SocketProvider } from './context/SocketContext'
 
 // import { PersistGate } from 'redux-persist/integration/react'
 
@@ -61,15 +62,13 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    {/* <PersistGate loading={null} persistor={persistor}> */}
+    <SocketProvider>
       <RouterProvider router={router}>
-
           <StrictMode>
             <App />
           </StrictMode>
-
       </RouterProvider>
-    {/* </PersistGate> */}
+      </SocketProvider>
   </Provider>
   ,
 )
