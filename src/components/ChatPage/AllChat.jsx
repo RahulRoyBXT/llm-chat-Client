@@ -112,7 +112,7 @@ const AllChat = () => {
                     className="h-20 flex flex-row items-center text-xl border-2 border-base-100/50 shadow-2xl"
                     key={index}
                   >
-                    <div className="min-h-[50px] h-full min-w-[60px] w-1/6 py-2 rounded-xl object-contain">
+                    <div className="min-h-[50px] h-full min-w-[60px] w-1/6 py-2 rounded-xl object-cover">
                       <img
                         className="h-full w-full rounded-4xl"
                         src={user.userPhoto}

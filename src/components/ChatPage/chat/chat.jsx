@@ -11,23 +11,24 @@ import {
   updateTempMessage,
 } from "../../../features/messageSlice";
 
-import {
-  selectMessage,
-} from "../../../features/selectors/messagesSelector";
+import { selectMessage } from "../../../features/selectors/messagesSelector";
 
 export const Chat = () => {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
 
   // Selectors
   const tempMsg = useSelector(selectMessage);
-  const {user: currentUser, loading, error} = useSelector((state) => state.auth);
+  const {
+    user: currentUser,
+    loading,
+    error,
+  } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const location = useLocation();
   const { chats } = useParams();
-
 
   const images = location?.state?.image || null;
   const email = location?.state?.email || null;
@@ -54,7 +55,6 @@ export const Chat = () => {
     }
   }, [receiverId, navigate]);
 
-
   // Get request on mount
   useEffect(() => {
     if (senderId && receiverId && !tempMsg?.length > 0) {
@@ -62,8 +62,6 @@ export const Chat = () => {
     }
   }, [senderId, receiverId, tempMsg?.length, dispatch]);
 
-
-  
   // Sending Messages with optimistic UI updates
   const handleMessage = async () => {
     if (!message.trim()) return;
@@ -104,60 +102,71 @@ export const Chat = () => {
     }
   };
 
-  
   // Focus on last Message
   useEffect(() => {
-    
     const container = messageEndRef.current?.parentElement;
     if (!container) return;
-    
+
     const atBottom =
-    container.scrollHeight - container.scrollTop <=
-    container.clientHeight + 50;
-    
+      container.scrollHeight - container.scrollTop <=
+      container.clientHeight + 50;
+
     if (atBottom) {
       messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [tempMsg?.length]);
-  
+
   return (
-    <main className="chat bg-neutral min-h-screen max-h-screen w-full relative">
+    <main className="chat bg-base-300 min-h-[100dvh] max-h-screen w-full relative">
       <ChatNavBar name={chats} images={images} />
-      <div className="h-[calc(100dvh-6rem)] pt-[6rem] p-4 w-full">
-      <div className="bg-base-100 text-base-content h-full w-full rounded-xl p-2 overflow-auto">
-  <div className="h-fit w-full">
-    {tempMsg?.length > 0 &&
-      tempMsg.map((data) => {
-        console.log('want to kill myself',data)
-        return(
-        <div
-          key={data.uniqueId}
-          className={data.sender === senderId ? "d-chat d-chat-end" : "d-chat d-chat-start"}
-        >
-          <div className="d-chat-image d-avatar">
-            <div className="w-10 rounded-full">
-              <img
-                alt="User Avatar"
-                src={data.sender=== senderId ? currentUser.photo : images}
-              />
-            </div>
-          </div>
-          <div className="d-chat-header">
-            {data.sender === senderId ? "Me" : receiverName}
-            <time className="text-xs opacity-50">{data.date}</time>
-          </div>
-          <div className={`d-chat-bubble ${data.senderId === senderId ? "bg-base-300" : "bg-base-200"}`}>
-            {data.content}
-          </div>
-          <div className="d-chat-footer opacity-50">
-            {data.sender === senderId ? data.status : data.timestamp}
+      <div className="h-[calc(100dvh-6rem)] p-4 w-full">
+        <div className="bg-base-100 text-base-content pt-[6rem] h-full w-full rounded-xl p-2 overflow-auto">
+          <div className="h-fit w-full">
+            {tempMsg?.length > 0 &&
+              tempMsg.map((data) => {
+                return (
+                  <div
+                    key={data.uniqueId}
+                    className={
+                      data.sender === senderId
+                        ? "d-chat d-chat-end"
+                        : "d-chat d-chat-start"
+                    }
+                  >
+                    <div className="d-chat-image d-avatar">
+                      <div className="w-10 rounded-full">
+                        <img
+                          alt="User Avatar"
+                          src={
+                            data.sender === senderId
+                              ? currentUser.photo
+                              : images
+                          }
+                        />
+                      </div>
+                    </div>
+                    <div className="d-chat-header">
+                      {data.sender === senderId ? "Me" : receiverName}
+                      <time className="text-xs opacity-50">{data.date}</time>
+                    </div>
+                    <div
+                      className={`d-chat-bubble ${
+                        data.senderId === senderId
+                          ? "bg-base-300"
+                          : "bg-base-200"
+                      }`}
+                    >
+                      {data.content}
+                    </div>
+                    <div className="d-chat-footer opacity-50">
+                      {data.sender === senderId ? data.status : data.timestamp}
+                    </div>
+                  </div>
+                );
+              })}
+            <div ref={messageEndRef} />
           </div>
         </div>
-      )})}
-    <div ref={messageEndRef} />
-  </div>
-</div>
-
       </div>
       <Footer
         handleMessage={handleMessage}

@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 const initialState = {
-  user: [],
+  user: null,
   loading: false,
   error: null,
 };
@@ -15,7 +15,7 @@ export const checkLoginStatus = createAsyncThunk(
     'auth/checkLoginStatus',
     async (_, {rejectWithValue})=> {
         try{
-            const response = await axios.post('http://192.168.179.192:5000/api/users/auth/profile',{}, {withCredentials: true})
+            const response = await axios.post('http://192.168.132.192:5000/api/users/auth/profile',{}, {withCredentials: true})
             // localStorage.setItem('user', JSON.stringify(response.data)) // Will check this later
             // console.log('response', response.data)
             return response.data
@@ -34,7 +34,7 @@ export const registerUser = createAsyncThunk(
     // console.log(fromData.password)
     try {
       const response = await axios.post(
-        "http://192.168.179.192:5000/api/users/auth/createuser",
+        "http://192.168.132.192:5000/api/users/auth/createuser",
           fromData,
         {
           headers: {
@@ -66,7 +66,7 @@ export const loginUser = createAsyncThunk(
     // console.log(email, password)
       try {
           const response = await axios.post(
-              "http://192.168.179.192:5000/api/users/auth/loginuser",
+              "http://192.168.132.192:5000/api/users/auth/loginuser",
               { email, password },
               { withCredentials: true }
           );
@@ -89,7 +89,7 @@ export const LogoutUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://192.168.179.192:5000/api/users/auth/logoutuser",
+        "http://192.168.132.192:5000/api/users/auth/logoutuser",
            {},
         {
           withCredentials: true, 
