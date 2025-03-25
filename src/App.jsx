@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import { BrowserView, MobileView } from "react-device-detect";
 import { createPortal } from "react-dom";
 import SimpleClock from "../features/Clock";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { checkLoginStatus } from "./features/authSlice";
 
 // import { UserDataProvider } from "./context/UserDataProvider"
@@ -11,10 +11,17 @@ import { checkLoginStatus } from "./features/authSlice";
 const App = () => {
 
   const dispatch = useDispatch();
+  const selectedTheme = useSelector((state) => state.theme.theme);
+
+  useEffect(()=>{
+    if(selectedTheme === 'dark'){
+      document.querySelector("body").setAttribute("data-theme", selectedTheme);
+    }
+  },[selectedTheme])
 
   useEffect(()=>{
     dispatch(checkLoginStatus())
-  },[])
+  },[dispatch])
 
   return (
     <main>
