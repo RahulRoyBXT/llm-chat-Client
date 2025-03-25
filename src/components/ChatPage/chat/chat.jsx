@@ -12,6 +12,7 @@ import {
 } from "../../../features/messageSlice";
 
 import { selectMessage } from "../../../features/selectors/messagesSelector";
+import { checkLoginStatus } from "../../../features/authSlice";
 
 export const Chat = () => {
   const [message, setMessage] = useState("");
@@ -37,13 +38,6 @@ export const Chat = () => {
   // Focus Container
   const messageEndRef = useRef(null);
 
-  // if user is not logged in
-  useEffect(() => {
-    if (currentUser === null) {
-      navigate("/login");
-    }
-  }, [currentUser, navigate]);
-
   // Current user as sender
   const senderId = currentUser?.id;
   const senderName = currentUser?.name;
@@ -55,6 +49,21 @@ export const Chat = () => {
     }
   }, [receiverId, navigate]);
 
+
+  useEffect(() => {
+    const verifyLoginStatus = async () => {
+      try{
+        const response = await dispatch(checkLoginStatus()).unwrap();
+        console.log(response.id)
+      } catch{
+          navigate("/login");
+      }
+    };
+    verifyLoginStatus();
+  }, [dispatch, navigate])
+
+
+  
   // Get request on mount
   useEffect(() => {
     if (senderId && receiverId && !tempMsg?.length > 0) {
