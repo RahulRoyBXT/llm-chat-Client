@@ -164,7 +164,7 @@ export const Chat = () => {
                         : "d-chat d-chat-start"
                     }
                   >
-                    <div className="d-chat-image d-avatar">
+                    {/* <div className="d-chat-image d-avatar">
                       <div className="w-10 rounded-full">
                         <img
                           alt="User Avatar"
@@ -175,17 +175,13 @@ export const Chat = () => {
                           }
                         />
                       </div>
-                    </div>
+                    </div> */}
                     <div className="d-chat-header">
                       {data.sender === senderId ? "Me" : receiverName}
                       <time className="text-xs opacity-50">{data.date}</time>
                     </div>
                     <div
-                      className={`d-chat-bubble ${
-                        data.senderId === senderId
-                          ? "bg-base-300"
-                          : "bg-base-200"
-                      }`}
+                        className={`d-chat-bubble ${data.sender === senderId ? "bg-base-200" : "bg-base-300"}`}
                     >
                       {data.content}
                     </div>
