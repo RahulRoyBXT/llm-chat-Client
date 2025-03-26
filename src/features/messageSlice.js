@@ -45,6 +45,7 @@ const MessagesSlice = createSlice({
     reducers: {
         updateTempMessage: (state, action) => {
             state.temMessages.push(action.payload)
+            console.log('messages: ', state.temMessages)
         }
     },
     extraReducers: (builder) => {

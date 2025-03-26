@@ -14,11 +14,14 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 import { DeviceSpecificResponse } from "../../DeviceSpacific/DeviceDetection.jsx";
 import { FriendList } from "../../features/friendsSlice.js";
 import { selectAllfriends } from "../../features/selectors/friendSelector.js";
+import {AllChatsImageContainer} from "../Popups/AllChatsImageConatainer.jsx";
 
 let Data = [];
 
 const AllChat = () => {
+  const [imageContainer, setImageContainer ] = useState(false)
   const dispatch = useDispatch();
+
 
   const selectedFilteredUserData = useSelector(
     (state) => state.users.filteredData
@@ -112,23 +115,30 @@ const AllChat = () => {
                     className="h-20 flex flex-row items-center text-xl border-2 border-base-100/50 shadow-2xl"
                     key={index}
                   >
-                    <div className="min-h-[50px] h-full min-w-[60px] w-1/6 py-2 rounded-xl object-cover">
+                    <div className="min-h-[50px] h-full min-w-[60px] w-1/6 py-2 rounded-xl">
+                      
                       <img
-                        className="h-full w-full rounded-4xl"
+                        className="h-full w-full rounded-4xl object-cover"
                         src={user.userPhoto}
                         alt="profile pic"
+                        onClick={()=> setImageContainer(true)}
                       />
                     </div>
+                    {imageContainer && <AllChatsImageContainer imageURL={user.userPhoto} onClose={()=>setImageContainer(false)}/>}
+
                     <NavLink
                       to={`/chat/${user.name}`}
                       state={{ image: user.userPhoto, email: user.email, name: user.name, id: user._id}}
                       className="h-full w-full"
                     >
+                      
                       <div className="h-full w-[calc(90%)] p-2 text-base-content">
                         <div className="h-1/2 w-full text-xl">{user.name}</div>
                         <div className="h-1/2 w-full text-lg">Last Message</div>
                       </div>
+
                     </NavLink>
+
 
                     <div className="d-status d-status-info animate-bounce absolute right-10 z-1"></div>
                   </div>
@@ -151,28 +161,28 @@ const AllChat = () => {
       </main>
       <div className="fixed z-20 right-5 bottom-10 h-40 w-15 rounded-xl flex flex-col-reverse items-center gap-2">
         <div
-          className="w-[90%] h-12 border-1 flex justify-center items-center rounded-2xl bg-base-300 shadow-md shadow-base-content"
+          className="w-[90%] h-12 border-1 flex justify-center items-center rounded-2xl bg-teal-500"
           onClick={() => setOpenMoreOption((pre) => !pre)}
         >
           {!openMoreOption ? (
-            <FaSortDown className="text-4xl text-base-content" />
+            <FaSortDown className="text-4xl text-teal-950" />
           ) : (
-            <FaSortUp className="text-4xl text-base-content" />
+            <FaSortUp className="text-4xl text-teal-950" />
           )}
         </div>
         {openMoreOption && (
           <>
             <div
-              className="w-[90%] shadow-md shadow-base-content h-12 border-1 flex justify-center items-center rounded-2xl bg-base-300"
+              className="w-[90%] h-12 border-1 flex justify-center items-center rounded-2xl bg-teal-500"
               onClick={() => setOpenMoreOption((pre) => !pre)}
             >
-              <IoIosAddCircleOutline className="text-4xl text-base-content" />
+              <IoIosAddCircleOutline className="text-4xl text-green-950" />
             </div>
             <div
-              className="w-[90%] shadow-md shadow-base-content h-12 border-1 flex justify-center items-center rounded-2xl bg-base-300"
+              className="w-[90%] h-12 border-1 flex justify-center items-center rounded-2xl bg-teal-500"
               onClick={() => setOpenMoreOption((pre) => !pre)}
             >
-              <CgCommunity className="text-4xl text-base-content" />
+              <CgCommunity className="text-4xl text-green-950" />
             </div>
           </>
         )}

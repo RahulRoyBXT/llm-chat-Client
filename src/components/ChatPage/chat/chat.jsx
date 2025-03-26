@@ -10,12 +10,17 @@ import {
   sendMessage,
   updateTempMessage,
 } from "../../../features/messageSlice";
+import { useSocket } from "../../../context/SocketContext";
 
 import { selectMessage } from "../../../features/selectors/messagesSelector";
 import { checkLoginStatus } from "../../../features/authSlice";
 
 export const Chat = () => {
   const [message, setMessage] = useState("");
+
+  const [ totalMessage, setTotalMessage ]= useState('')
+
+  const socket = useSocket();
 
   // Selectors
   const tempMsg = useSelector(selectMessage);
@@ -62,7 +67,6 @@ export const Chat = () => {
     verifyLoginStatus();
   }, [dispatch, navigate])
 
-
   
   // Get request on mount
   useEffect(() => {
@@ -70,6 +74,20 @@ export const Chat = () => {
       dispatch(GetMessages([senderId, receiverId].sort().join("_")));
     }
   }, [senderId, receiverId, tempMsg?.length, dispatch]);
+
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("receive_message", (message) => {
+        console.log("Received message:", message);
+        dispatch(updateTempMessage(message));
+      });
+  
+      return () => socket.off("receive_message");
+    }
+  }, [socket, dispatch]);
+
+
 
   // Sending Messages with optimistic UI updates
   const handleMessage = async () => {
@@ -95,6 +113,10 @@ export const Chat = () => {
 
     // Updated temp message to temp state
     dispatch(updateTempMessage(optMessage));
+
+    if (socket) {
+      socket.emit("send_message", optMessage);
+    }
 
     // POST.data Request to backend to save msg
     try {
@@ -142,7 +164,7 @@ export const Chat = () => {
                         : "d-chat d-chat-start"
                     }
                   >
-                    <div className="d-chat-image d-avatar">
+                    {/* <div className="d-chat-image d-avatar">
                       <div className="w-10 rounded-full">
                         <img
                           alt="User Avatar"
@@ -153,17 +175,13 @@ export const Chat = () => {
                           }
                         />
                       </div>
-                    </div>
+                    </div> */}
                     <div className="d-chat-header">
                       {data.sender === senderId ? "Me" : receiverName}
                       <time className="text-xs opacity-50">{data.date}</time>
                     </div>
                     <div
-                      className={`d-chat-bubble ${
-                        data.senderId === senderId
-                          ? "bg-base-300"
-                          : "bg-base-200"
-                      }`}
+                        className={`d-chat-bubble ${data.sender === senderId ? "bg-base-200" : "bg-base-300"}`}
                     >
                       {data.content}
                     </div>

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { FaPenToSquare } from "react-icons/fa6";
 
 const ProfileImageContainer = ({setImageContainer, profilePic}) => {
@@ -26,3 +27,9 @@ const ProfileImageContainer = ({setImageContainer, profilePic}) => {
 };
 
 export default ProfileImageContainer;
+
+ProfileImageContainer.propTypes = {
+    setImageContainer: PropTypes.func.isRequired,
+    profilePic: PropTypes.string.isRequired,
+};
+
