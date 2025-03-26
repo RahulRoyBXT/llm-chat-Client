@@ -1,12 +1,12 @@
 import React from 'react'
 import { FaSortDown, FaSortUp } from 'react-icons/fa6'
-import { IoReturnDownBack } from 'react-icons/io5'
+import { RiArrowGoBackFill } from "react-icons/ri";
 
 const PrivacyStatus = ({setArrow,arrow,privacyStatus,setPrivacyStatus}) => {
   return (
     <div className="bg-base-300 w-full h-full z-10 absolute left-0 top-0 p-4 text-base-content flex flex-col gap-4">
           <div className="h-[10%] w-full text-4xl flex flex-row justify-between items-center">
-            <IoReturnDownBack
+            <RiArrowGoBackFill
               onClick={() =>
                 setPrivacyStatus((pre) => ({ ...pre, open: false }))
               }

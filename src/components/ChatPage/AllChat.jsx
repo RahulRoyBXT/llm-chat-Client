@@ -85,7 +85,7 @@ const AllChat = () => {
 
   return (
     <>
-      <main className="h-screen w-full relative">
+      <main className="h-[100dvh] w-full relative bg-base-300">
         {!searchBarStatus && (
           <NavBar
             setFilteredData={setFilteredData}

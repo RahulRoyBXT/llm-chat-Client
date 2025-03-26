@@ -23,6 +23,7 @@ const NavBar = ({ setSearchBarStatus }) => {
   };
 
   return (
+    
     <div className="w-full p-2 fixed top-0 left-0 bg-base-300 z-10">
       {navOpenStatus ? (
         <Settings

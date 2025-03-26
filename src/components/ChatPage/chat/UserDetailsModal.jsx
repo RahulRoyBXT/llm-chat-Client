@@ -25,9 +25,9 @@ export const UserDetailsModal = ({ user, onClose }) => {
             className="absolute top-5 left-5 border-1 p-2 h-10 w-10 rounded-xl"
           />
           <div className="h-full w-full flex flex-col justify-center items-center gap-4">
-            <div className="min-h-[40%] max-h-[60%] min-w-[30%] w-[50%] max-w-[60%] object-cover rounded-2xl">
+            <div className="min-h-[40%] max-h-[60%] min-w-[30%] w-[50%] max-w-[60%] rounded-2xl">
               <img
-                className="h-full w-full rounded-2xl"
+                className="h-full w-full rounded-2xl object-cover"
                 src={user?.image}
                 alt={user?.name}
               />
