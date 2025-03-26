@@ -161,25 +161,25 @@ const AllChat = () => {
       </main>
       <div className="fixed z-20 right-5 bottom-10 h-40 w-15 rounded-xl flex flex-col-reverse items-center gap-2">
         <div
-          className="w-[90%] h-12 border-1 flex justify-center items-center rounded-2xl bg-green-500"
+          className="w-[90%] h-12 border-1 flex justify-center items-center rounded-2xl bg-teal-500"
           onClick={() => setOpenMoreOption((pre) => !pre)}
         >
           {!openMoreOption ? (
-            <FaSortDown className="text-4xl text-green-950" />
+            <FaSortDown className="text-4xl text-teal-950" />
           ) : (
-            <FaSortUp className="text-4xl text-green-950" />
+            <FaSortUp className="text-4xl text-teal-950" />
           )}
         </div>
         {openMoreOption && (
           <>
             <div
-              className="w-[90%] h-12 border-1 flex justify-center items-center rounded-2xl bg-green-500"
+              className="w-[90%] h-12 border-1 flex justify-center items-center rounded-2xl bg-teal-500"
               onClick={() => setOpenMoreOption((pre) => !pre)}
             >
               <IoIosAddCircleOutline className="text-4xl text-green-950" />
             </div>
             <div
-              className="w-[90%] h-12 border-1 flex justify-center items-center rounded-2xl bg-green-500"
+              className="w-[90%] h-12 border-1 flex justify-center items-center rounded-2xl bg-teal-500"
               onClick={() => setOpenMoreOption((pre) => !pre)}
             >
               <CgCommunity className="text-4xl text-green-950" />
