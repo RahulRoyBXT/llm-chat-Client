@@ -10,7 +10,7 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (user) {
-      const newSocket = io("http://192.168.132.192:5000", {
+      const newSocket = io(import.meta.env.VITE_API_URL, {
         query: { userId: user.id },
         withCredentials: true,
       });

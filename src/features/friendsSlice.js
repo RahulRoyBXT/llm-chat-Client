@@ -6,7 +6,7 @@ export const FriendList = createAsyncThunk(
     async (userId, { rejectWithValue }) => {
         // console.log("Checking data: ", userId);
         try {
-            const result = await axios.get(`http://192.168.132.192:5000/api/friends/list/${userId}`);
+            const result = await axios.get(`${import.meta.env.VITE_API_USER_FRIENDS_LIST}${userId}`);
             // console.log("response", result.data);
             return result.data;
         } catch (error) {

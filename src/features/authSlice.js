@@ -15,7 +15,7 @@ export const checkLoginStatus = createAsyncThunk(
     'auth/checkLoginStatus',
     async (_, {rejectWithValue})=> {
         try{
-            const response = await axios.post('http://192.168.132.192:5000/api/users/auth/profile',{}, {withCredentials: true})
+            const response = await axios.post(import.meta.env.VITE_API_CHECK_LOGIN_STATUS,{}, {withCredentials: true})
             // localStorage.setItem('user', JSON.stringify(response.data)) // Will check this later
             // console.log('response', response.data)
             return response.data
@@ -34,7 +34,7 @@ export const registerUser = createAsyncThunk(
     // console.log(fromData.password)
     try {
       const response = await axios.post(
-        "http://192.168.132.192:5000/api/users/auth/createuser",
+        import.meta.env.VITE_API_REGISTER_USER,
           fromData,
         {
           headers: {
@@ -66,7 +66,7 @@ export const loginUser = createAsyncThunk(
     // console.log(email, password)
       try {
           const response = await axios.post(
-              "http://192.168.132.192:5000/api/users/auth/loginuser",
+              import.meta.env.VITE_API_LOGIN_USER,
               { email, password },
               { withCredentials: true }
           );
@@ -89,7 +89,7 @@ export const LogoutUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://192.168.132.192:5000/api/users/auth/logoutuser",
+        import.meta.env.VITE_API_LOGOUT_USER,
            {},
         {
           withCredentials: true, 

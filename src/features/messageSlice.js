@@ -12,7 +12,7 @@ export const GetMessages = createAsyncThunk(
     'messages/all',
     async (URL, {rejectWithValue})=> {
         try{
-            const response = await axios.get(`http://192.168.132.192:5000/api/message/${URL}`)
+            const response = await axios.get(`${import.meta.env.VITE_API_GET_USER_MESSAGES}${URL}`)
             return response.data
         } catch (error) {
             return rejectWithValue(error.response.data?.message || 'Something Went Wrong')
@@ -27,7 +27,7 @@ export const sendMessage = createAsyncThunk(
     'messages/send',
     async ({ senderId, receiverId, content, uniqueId}, {rejectWithValue})=> {
         try {
-            const response = await axios.post(`http://192.168.132.192:5000/api/message/send`,
+            const response = await axios.post(`${import.meta.env.VITE_API_USER_SEND_MESSAGES}`,
                 {senderId, receiverId, content, uniqueId}
             )
             return response.data.data

@@ -22,7 +22,6 @@ const App = () => {
   useEffect(()=>{
     dispatch(checkLoginStatus())
   },[dispatch])
-
   return (
     <main>
     {/* {loading && alert('logged in')}
