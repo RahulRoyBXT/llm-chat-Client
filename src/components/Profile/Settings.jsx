@@ -11,9 +11,9 @@ import {
   selectProfilePic,
   selectUserName,
 } from "../../features/selectors/userSelector";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AllChatsImageContainer } from "../Popups/AllChatsImageConatainer";
-import { RiArrowGoBackFill } from "react-icons/ri";
+import { motion } from "framer-motion";
 
 export const Settings = ({
   setNavOpenStatus,
@@ -23,31 +23,53 @@ export const Settings = ({
   setArrow,
   themeSetting,
   setThemeSetting,
-  // imageContainer,
-  // setImageContainer,
   privacyStatus,
   setPrivacyStatus,
 }) => {
   const [imageContainer, setImageContainer] = useState(false);
 
+
   const profilePic = useSelector(selectProfilePic);
   const userName = useSelector(selectUserName);
 
-  const StopPropagations = (e)=>{
-    e.stopPropagation()
-  }
-  const ResetAllState = (e)=> {
-    e.stopPropagation()
-    setNavOpenStatus(false)
-    setThemeSetting(false)
-    setNavOpenStatus(false)
-    setAccountBtnStatus(false)
-    setPrivacyStatus(false)
-  }
+  const StopPropagations = (e) => {
+    e.stopPropagation();
+  };
+
+  const ResetAllState = (e) => {
+    e.stopPropagation();
+    setNavOpenStatus(false);
+    setThemeSetting(false);
+    setAccountBtnStatus(false);
+    setPrivacyStatus(false);
+  };
 
   return (
-    <div className="h-[100dvh] w-full bg-transparent fixed" onClick={ResetAllState}>
-      <div onClick={StopPropagations} className="min-h-content w-full rounded-xl flex flex-row backdrop-blur-6xl shadow-base-100 shadow-2xl p-4 bg-base-100">
+    <motion.div
+      initial={{ opacity: 0, y: -20, scale: 1 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{
+        opacity: 0,
+        y: -20,
+      }}
+      transition={{
+        type: "tween",
+        duration: 0.2,
+        exit: {
+          duration: 0.2,
+          ease: "linear",
+          delay: 0.1,
+        },
+      }}
+      className="h-[100dvh] w-full bg-transparent fixed z-50"
+      onClick={ResetAllState}
+      // onAnimationStart={() => console.log("Animation started")}
+      // onAnimationComplete={() => console.log("Animation completed")}
+    >
+      <div
+        onClick={StopPropagations}
+        className="min-h-content w-full rounded-xl flex flex-row backdrop-blur-6xl shadow-base-100 shadow-2xl p-4 bg-base-100"
+      >
         <div className="h-full w-full p-2 flex flex-col gap-4">
           <div className="w-full">
             <ImCross
@@ -165,16 +187,9 @@ export const Settings = ({
                 setThemeSetting={setThemeSetting}
               />
             )}
-
-            {/* {imageContainer && (
-            <ProfileImageContainer
-              profilePic={profilePic}
-              setImageContainer={setImageContainer}
-            />
-          )} */}
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

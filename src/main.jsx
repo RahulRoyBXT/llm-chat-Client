@@ -14,6 +14,8 @@ import RegisterPage from './components/Pages/RegisterPage.jsx'
 import { WelcomePage } from './components/WelcomePage/Continue-agreement/WelcomePage.jsx'
 import { Error404 } from './components/Pages/404.jsx'
 import { SocketProvider } from './context/SocketContext'
+import { UsersPage } from './components/Pages/UsersPage.jsx'
+import { UserProfile } from './components/Pages/UserProfile.jsx'
 
 // import { PersistGate } from 'redux-persist/integration/react'
 
@@ -55,7 +57,15 @@ const router = createBrowserRouter([
     {
       path:'*',
       element: <Error404 />
-    }
+    },
+    {
+      path: '/users',
+      element: <UsersPage />
+    },
+    {
+      path: '/users/:user',
+      element: <UserProfile />
+    },
   ]
   }
 ])
@@ -64,9 +74,9 @@ createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <SocketProvider>
       <RouterProvider router={router}>
-          <StrictMode>
+          {/* <StrictMode> */}
             <App />
-          </StrictMode>
+          {/* </StrictMode> */}
       </RouterProvider>
       </SocketProvider>
   </Provider>

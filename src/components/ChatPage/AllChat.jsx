@@ -15,8 +15,14 @@ import { DeviceSpecificResponse } from "../../DeviceSpacific/DeviceDetection.jsx
 import { FriendList } from "../../features/friendsSlice.js";
 import { selectAllfriends } from "../../features/selectors/friendSelector.js";
 import {AllChatsImageContainer} from "../Popups/AllChatsImageConatainer.jsx";
+import { motion, AnimatePresence } from "framer-motion";
 
 let Data = [];
+const pageVariants = {
+  initial: { opacity: 0, x: "100%" }, // Comes from the right
+  animate: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+  exit: { opacity: 0, x: "100%", transition: { duration: 0.5 } }, // Goes back to right
+};
 
 const AllChat = () => {
   const [imageContainer, setImageContainer ] = useState(false)
@@ -111,7 +117,7 @@ const AllChat = () => {
             {selectedFilteredUserData?.length > 0 ? (
               selectedFilteredUserData.map((user, index) => {
                 return (
-                  <div
+                  <motion.div
                     className="h-20 flex flex-row items-center text-xl border-2 border-base-100/50 shadow-2xl"
                     key={index}
                   >
@@ -141,7 +147,7 @@ const AllChat = () => {
 
 
                     <div className="d-status d-status-info animate-bounce absolute right-10 z-1"></div>
-                  </div>
+                  </motion.div>
                 );
               })
             ) : (
@@ -161,7 +167,7 @@ const AllChat = () => {
       </main>
       <div className="fixed z-20 right-5 bottom-10 h-40 w-15 rounded-xl flex flex-col-reverse items-center gap-2">
         <div
-          className="w-[90%] h-12 border-1 flex justify-center items-center rounded-2xl bg-teal-500"
+          className="w-[90%] min-h-12 border-1 flex justify-center items-center rounded-2xl bg-teal-500"
           onClick={() => setOpenMoreOption((pre) => !pre)}
         >
           {!openMoreOption ? (
@@ -172,18 +178,26 @@ const AllChat = () => {
         </div>
         {openMoreOption && (
           <>
+          <NavLink
+           to='/users'
+           className='h-full w-full'>
             <div
               className="w-[90%] h-12 border-1 flex justify-center items-center rounded-2xl bg-teal-500"
               onClick={() => setOpenMoreOption((pre) => !pre)}
             >
               <IoIosAddCircleOutline className="text-4xl text-green-950" />
+
             </div>
+          </NavLink>
+          
+          <NavLink className='h-full w-full'>
             <div
               className="w-[90%] h-12 border-1 flex justify-center items-center rounded-2xl bg-teal-500"
               onClick={() => setOpenMoreOption((pre) => !pre)}
             >
               <CgCommunity className="text-4xl text-green-950" />
             </div>
+          </NavLink>
           </>
         )}
       </div>

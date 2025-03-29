@@ -11,9 +11,14 @@ export const selectProfilePic = createSelector(
     }
 );
 
+export const selectUserId = createSelector(
+    [selectUser],
+    (user) => user?.id // Provide a fallback name
+);
+
 export const selectUserName = createSelector(
     [selectUser],
-    (user) => user?.name || 'Guest' // Provide a fallback name
+    (user) => user?.name // Provide a fallback name
 );
 
 export const selectEmail = createSelector(
