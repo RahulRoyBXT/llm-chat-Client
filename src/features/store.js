@@ -2,9 +2,9 @@ import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "../API/apiSlice";
 import { combineReducers } from "redux";
 
+import authReducer from "./authSlice.js";
 import userReducer from "../features/userSlice.js";
 import ThemeReducer from "./ThemeSlice.js";
-import authReducer from "./authSlice.js";
 import FriendsReducer from './friendsSlice.js'
 import MessagesSlice from './messageSlice.js'
 
@@ -23,5 +23,6 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(apiSlice.middleware),
 });
+
 
 export default store;
